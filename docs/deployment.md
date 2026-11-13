@@ -12,23 +12,27 @@ The site is a **fully static export** (`next build` → `out/`). Any static host
 
 Build output check: ~40 HTML pages + assets, far below the 20,000-file limit.
 
-## 2. Deploy to Cloudflare Pages (requires the owner's Cloudflare account — not created by us)
-1. Push the repository to GitHub (see README).
-2. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → select `truesquare-calc`.
-3. Build settings: Framework preset **None** (or Next.js (Static HTML Export)); Build command `npm run build`; Output directory `out`; environment variable `NODE_VERSION=22` (or 24).
-4. Environment variables (Production):
-   - `NEXT_PUBLIC_SITE_URL` = your Pages URL, e.g. `https://truesquare-calc.pages.dev` (later your domain). **Rebuild whenever it changes** — canonicals and sitemap are baked in at build time.
-   - optional `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_CONTACT_FORM_ENDPOINT`.
-5. Deploy; verify `/`, `/concrete-calculator`, `/sitemap.xml`, `/robots.txt`, a 404 URL, and response headers (from `public/_headers`).
+## 2. Current deployment (live)
+- **URL:** https://truesquare-calc.truesquare-calc.workers.dev
+- **Platform:** Cloudflare Workers, static-assets only (Cloudflare now delivers Pages through Workers; `wrangler pages project create` delegates there). Config: `wrangler.jsonc` → serves `out/`, `not_found_handling: "404-page"`, `html_handling: "drop-trailing-slash"`. `public/_headers` is applied to asset responses.
+- **Cost:** €0 on the Workers Free plan. Requests that only serve static assets do not run Worker code. Owner: confirm current free-plan limits and terms in the Cloudflare dashboard.
 
-Alternative without Git integration: `npx wrangler pages deploy out --project-name truesquare-calc` (requires `wrangler login`).
+### Redeploy after changes
+```bash
+npx wrangler login      # once per machine (opens the browser)
+npm run deploy          # build + flatten segments + wrangler deploy
+```
+The canonical URL defaults to the workers.dev address in `src/lib/site.ts`; override with `NEXT_PUBLIC_SITE_URL` when a custom domain is added, then redeploy.
+
+### Optional: automatic deploys from GitHub
+Either connect the repository in the Cloudflare dashboard (Workers & Pages → the `truesquare-calc` Worker → Settings → Builds → Connect repository; build command `npm run build`, deploy command `npx wrangler deploy`), or add a GitHub Actions job using `cloudflare/wrangler-action` with a `CLOUDFLARE_API_TOKEN` repository secret that **you** create (never commit tokens).
 
 ## 3. Custom domain (when purchased)
-Add it in Pages → Custom domains, update `NEXT_PUBLIC_SITE_URL`, rebuild, then add the domain property in Google Search Console and submit `/sitemap.xml`. Consider a redirect rule from `*.pages.dev` to the domain (Cloudflare Bulk Redirects or a `_redirects` file).
+Add the domain to Cloudflare, then in the Worker → Settings → Domains & Routes → add a Custom Domain. Update the URL in `src/lib/site.ts` (or `NEXT_PUBLIC_SITE_URL`), `npm run deploy`, then add the domain property in Google Search Console and submit `/sitemap.xml`. Disable or redirect the workers.dev URL so there is a single canonical host.
 
 ## 4. Contact form (free options)
 - **Email only:** set `NEXT_PUBLIC_CONTACT_EMAIL` (shows a mailto link). Free; exposes the address to scrapers.
-- **Form:** create a free Formspree form (owner account; free tier has monthly submission limits) and set `NEXT_PUBLIC_CONTACT_FORM_ENDPOINT=https://formspree.io/f/xxxx`. CSP in `public/_headers` already allows `formspree.io`. Update the Privacy Policy to name the provider.
+- **Form (active):** Formspree form `https://formspree.io/f/xnpdnwjl`, default in `src/lib/site.ts`. Tested end to end on 13 Nov 2026 (submission accepted, notification received in the owner's Gmail). A submission using an `example.com` address was accepted but not emailed — likely Formspree spam filtering. Free tier has monthly submission limits. CSP in `public/_headers` already allows `formspree.io`.
 - Not possible on a static host without a third party: server-side email sending (would need Pages Functions + an email API key + a domain).
 
 ## 5. Known framework workaround

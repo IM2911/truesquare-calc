@@ -49,7 +49,7 @@ See `.env.example`. All are public (`NEXT_PUBLIC_*`) and optional except `NEXT_P
 | `NEXT_PUBLIC_ADSENSE_CLIENT` | Leave empty until AdSense is approved and a CMP is set up |
 
 ## Deployment
-Static export → recommended host **Cloudflare Pages (free)**. Vercel Hobby is not suitable for a monetized site (non-commercial only). Full steps: [`docs/deployment.md`](docs/deployment.md).
+Live at **https://truesquare-calc.truesquare-calc.workers.dev** — static export served as Cloudflare Workers static assets (free). Redeploy with `npm run deploy` after `npx wrangler login`. Vercel Hobby is not suitable for a monetized site (non-commercial only). Full details: [`docs/deployment.md`](docs/deployment.md).
 
 ## Publishing to GitHub
 ```bash
