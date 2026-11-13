@@ -1,0 +1,12 @@
+Category,Item,Quantity,Unit,Unit price,Estimated cost,Quote 1,Quote 2,Actual cost,Paid?,Notes
+Materials,Example: concrete (ready-mix),2,yd3 or m3,,=C2*E2,,,,,Replace example rows with your own
+Materials,,,,,=C3*E3,,,,,
+Materials,,,,,=C4*E4,,,,,
+Labour,,,,,=C5*E5,,,,,
+Labour,,,,,=C6*E6,,,,,
+Tools & hire,Example: plate compactor hire,1,day,,=C7*E7,,,,,
+Tools & hire,,,,,=C8*E8,,,,,
+Permits & fees,,,,,=C9*E9,,,,,
+Delivery & disposal,,,,,=C10*E10,,,,,
+Contingency,Contingency allowance (choose your %),,,,,,,,,Many budgets include a contingency for surprises
+TOTAL,,,,,=SUM(F2:F10),,,=SUM(I2:I11),,
