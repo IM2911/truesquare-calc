@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Type check
+        run: npm run typecheck
+      - name: Lint
+        run: npm run lint
+      - name: Unit tests
+        run: npm test
+      - name: Production build (static export)
+        run: npm run build
+      - name: Verify key routes exist in the export
+        run: |
+          for f in index.html 404.html concrete-calculator.html tile-calculator.html roof-pitch-calculator.html \
+                   category/concrete.html guides/how-much-concrete-do-i-need.html privacy-policy.html sitemap.xml robots.txt _headers; do
+            test -f "out/$f" || { echo "Missing out/$f"; exit 1; }
+          done
