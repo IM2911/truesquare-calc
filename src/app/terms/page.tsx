@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalPage, OwnerPlaceholder } from "@/components/LegalPage";
+import { LegalPage } from "@/components/LegalPage";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -12,12 +12,9 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <LegalPage title="Terms of use" path="/terms">
-      <p>
-        <strong>Draft:</strong> these terms are an initial draft and must be reviewed before launch. <OwnerPlaceholder>OWNER: legal review pending</OwnerPlaceholder>
-      </p>
       <h2>1. About these terms</h2>
       <p>
-        These terms apply to your use of {SITE.url} (the &quot;site&quot;), operated by <OwnerPlaceholder>OWNER: legal name and country</OwnerPlaceholder>. By using the site you agree to them. If
+        These terms apply to your use of {SITE.url} (the &quot;site&quot;), operated by {SITE.operator.name}, an individual based in {SITE.operator.location}. By using the site you agree to them. If
         you do not agree, please do not use the site.
       </p>
       <h2>2. Estimates only</h2>
@@ -53,7 +50,8 @@ export default function TermsPage() {
       <p>We may update these terms. The date at the top shows when they last changed.</p>
       <h2>9. Governing law</h2>
       <p>
-        <OwnerPlaceholder>OWNER: governing law and jurisdiction, to be confirmed with legal advice</OwnerPlaceholder>
+        These terms are governed by the laws of Spain. If you use the site as a consumer, you also keep the protection of any mandatory provisions of the law of the country where you live,
+        and you may bring proceedings in the courts of that country as well as in Spain.
       </p>
       <h2>10. Contact</h2>
       <p>

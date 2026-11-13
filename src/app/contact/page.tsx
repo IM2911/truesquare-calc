@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/ContactForm";
-import { LegalPage, OwnerPlaceholder } from "@/components/LegalPage";
+import { LegalPage } from "@/components/LegalPage";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function ContactPage() {
       )}
       {!hasForm && !hasEmail && (
         <p>
-          Our contact channel is being set up. <OwnerPlaceholder>OWNER: set NEXT_PUBLIC_CONTACT_EMAIL and/or NEXT_PUBLIC_CONTACT_FORM_ENDPOINT — see docs/deployment.md</OwnerPlaceholder>
+          Our contact form is being set up and will be available here shortly. Thank you for your patience.
         </p>
       )}
       <p>

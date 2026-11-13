@@ -10,7 +10,15 @@ function cleanUrl(url: string): string {
 
 export const SITE = {
   name: "TrueSquare",
-  legalName: "TrueSquare", // [OWNER: replace with the registered business or individual name]
+  /** Data controller / operator (an individual). The email is intentionally NOT published. */
+  operator: {
+    name: "Izam Montilla Gómez",
+    type: "individual",
+    location: "Barcelona, Spain",
+    country: "Spain",
+  },
+  /** How long contact messages are kept. */
+  contactRetention: "one month",
   tagline: "Accurate home improvement & construction calculators",
   description:
     "Free, accurate calculators for concrete, gravel, mulch, tile, flooring, roofing and carpentry projects — in imperial and metric units, with clear formulas and worked examples.",

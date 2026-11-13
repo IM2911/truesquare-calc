@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalPage, OwnerPlaceholder } from "@/components/LegalPage";
+import { LegalPage } from "@/components/LegalPage";
 import { CALCULATORS } from "@/lib/calculators/registry";
 import { SITE } from "@/lib/site";
 
@@ -40,8 +40,8 @@ export default function AboutPage() {
 
       <h2>Who is behind the site</h2>
       <p>
-        {SITE.name} is operated by <OwnerPlaceholder>OWNER: legal name of the individual or company, and country</OwnerPlaceholder>. We do not claim professional engineering or trade credentials
-        that we have not stated here. <OwnerPlaceholder>OWNER: optionally add genuine, verifiable background or credentials of the people who write and review content</OwnerPlaceholder>
+        {SITE.name} is an independent project operated by {SITE.operator.name}, an individual based in {SITE.operator.location}. We do not claim professional engineering or trade
+        credentials. Instead, every formula is documented, sourced and tested so you can check the work yourself.
       </p>
 
       <h2>How the site is funded</h2>

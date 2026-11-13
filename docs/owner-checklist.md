@@ -22,8 +22,10 @@ Nothing below has been created, purchased, applied for or approved on your behal
 - [ ] Set `NEXT_PUBLIC_CONTACT_EMAIL` and/or a Formspree endpoint; update Privacy Policy (provider, retention).
 
 ## Legal
-- [ ] Replace every `[OWNER: …]` placeholder (About, Contact, Privacy, Terms) — search the code for `OwnerPlaceholder`.
-- [ ] Professional legal review of Privacy Policy and Terms for your country and target markets.
+- [x] Owner details filled in (operator: individual in Barcelona, Spain; Spanish law; contact by form only; 1-month retention) — `SITE.operator` in `src/lib/site.ts`.
+- [ ] Professional legal review of Privacy Policy and Terms (Spain + target markets).
+- [ ] Spain-specific: once the site earns money (ads/affiliates), LSSI-CE art. 10 generally requires an "Aviso legal" with name, NIF, address and email. Check with an advisor whether/when this applies and whether you need to register as self-employed (autónomo).
+- [ ] When hosting and the form service are live, consider naming them in the Privacy Policy (currently described generically).
 
 ## AdSense
 - [ ] Only after domain, content and legal pages are final. Configure a Google-certified CMP for EEA/UK/CH. Then apply. See docs/monetization-strategy.md.

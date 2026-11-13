@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalPage, OwnerPlaceholder } from "@/components/LegalPage";
+import { LegalPage } from "@/components/LegalPage";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -12,15 +12,11 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <LegalPage title="Privacy policy" path="/privacy-policy">
-      <p>
-        <strong>Draft notice:</strong> this policy describes how the site works today. It must be reviewed by the owner (and ideally a legal professional) before launch and updated before any
-        analytics, advertising or affiliate tracking is enabled. <OwnerPlaceholder>OWNER: legal review pending</OwnerPlaceholder>
-      </p>
-
       <h2>Who we are</h2>
       <p>
-        This website ({SITE.url}) is operated by <OwnerPlaceholder>OWNER: legal name, postal address and country</OwnerPlaceholder>, the data controller for the purposes of applicable data
-        protection law (including the UK GDPR and EU GDPR where they apply). Contact: <OwnerPlaceholder>OWNER: privacy contact email</OwnerPlaceholder>.
+        This website ({SITE.url}) is operated by {SITE.operator.name}, an individual based in {SITE.operator.location}, who is the data controller under the EU General Data Protection
+        Regulation (GDPR), Spain&apos;s Organic Law 3/2018 on data protection (LOPDGDD) and, for UK visitors, the UK GDPR. You can contact the controller about privacy at any time through
+        our <Link href="/contact">contact page</Link>.
       </p>
 
       <h2>Calculations stay in your browser</h2>
@@ -42,15 +38,15 @@ export default function PrivacyPage() {
 
       <h2>Hosting and server logs</h2>
       <p>
-        The site is served by a hosting/CDN provider <OwnerPlaceholder>OWNER: provider name, e.g. Cloudflare</OwnerPlaceholder>, which processes technical data such as IP addresses and request
-        details to deliver pages and protect against abuse. Please see that provider&apos;s privacy policy for details.
+        The site is served by a third-party hosting and content-delivery provider, which processes technical data such as IP addresses and request details on our behalf in order to deliver
+        pages and protect the site against abuse. We do not use these logs to identify or profile visitors.
       </p>
 
       <h2>Contact messages</h2>
       <p>
-        If you contact us, we use your name, email address and message only to reply and to keep a record of the correspondence. Contact forms may be processed by a form provider{" "}
-        <OwnerPlaceholder>OWNER: name the provider if one is used</OwnerPlaceholder>. We keep messages for <OwnerPlaceholder>OWNER: retention period</OwnerPlaceholder> and then delete them. The lawful
-        basis is our legitimate interest in responding to enquiries.
+        If you contact us, we use your name, email address and message only to reply to you. Messages submitted through the contact form are delivered by a third-party form service acting
+        on our behalf. We keep messages for {SITE.contactRetention} and then delete them, unless we need them longer to resolve an ongoing issue. The lawful basis is our legitimate interest
+        in responding to enquiries (Article 6(1)(f) GDPR). We never sell your data or use it for marketing.
       </p>
 
       <h2>Future advertising and affiliate links</h2>
@@ -63,8 +59,9 @@ export default function PrivacyPage() {
       <h2>Your rights</h2>
       <p>
         Depending on where you live, you may have rights to access, correct, delete or restrict the use of your personal data, to object to processing, to data portability, and to complain to a
-        supervisory authority (for example the ICO in the UK). Residents of some US states, Canada and Australia have similar rights under their local laws. To exercise them, contact us using the
-        details above.
+        supervisory authority — in Spain, the Agencia Española de Protección de Datos (AEPD, www.aepd.es); in the UK, the Information Commissioner&apos;s Office (ICO). Residents of some US
+        states, Canada and Australia have similar rights under their local laws. To exercise them, contact us through the <Link href="/contact">contact page</Link>; we will reply within one
+        month.
       </p>
 
       <h2>Children</h2>
