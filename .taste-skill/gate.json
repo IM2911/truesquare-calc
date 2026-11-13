@@ -1,34 +1,16 @@
 {
- "start": "2026-11-13T11:45:38.656Z",
- "round": 2,
+ "start": "2026-11-13T14:00:36.191Z",
+ "round": 0,
  "idle": 0,
  "errors": 0,
  "status": "pass",
  "history": [
   {
-   "at": "2026-11-13T13:48:34.861Z",
-   "mode": "manual",
-   "status": "fail",
-   "fails": 2,
-   "round": 1,
-   "reused": false,
-   "stopHookActive": false
-  },
-  {
-   "at": "2026-11-13T13:50:48.871Z",
-   "mode": "manual",
-   "status": "fail",
-   "fails": 3,
-   "round": 2,
-   "reused": false,
-   "stopHookActive": false
-  },
-  {
-   "at": "2026-11-13T13:57:35.105Z",
+   "at": "2026-11-13T14:02:10.249Z",
    "mode": "manual",
    "status": "pass",
    "fails": 0,
-   "round": 2,
+   "round": 0,
    "reused": false,
    "stopHookActive": false
   }
@@ -36,21 +18,17 @@
  "max": 3,
  "marker": {
   "page": "out/index.html",
-  "dir": "C:\\Users\\Izam\\Desktop\\PROYECTO2",
-  "kind": "software",
-  "start": "2026-11-13T11:45:38.656Z",
-  "by": "start.mjs",
   "url": null,
   "root": "out",
+  "kind": "software",
   "category": "construction calculators",
-  "primary": "Find a calculator"
+  "primary": "Find a calculator",
+  "rounds": 3,
+  "start": "2026-11-13T14:00:36.191Z",
+  "by": "gate.mjs --start"
  },
  "manual": true,
- "roundKey": "51e15c53ed291ce1:df4efdb0",
- "roundFree": false,
- "idleFree": false,
- "blockKey": null,
- "fp": "bbcd47c2be867e0b",
+ "fp": "93f88aad3bc26a48",
  "page": "out/index.html",
  "found": {
   "fails": [
@@ -413,7 +391,7 @@
    "wheres": [
     "div.grid > div.trade.span-4:nth-of-type(2) > h3 > a.link \"Landscaping calculators\""
    ],
-   "reason": "At 390 the kit's fixed phone action bar (nav.actionbar, the Find a calculator button) sits over this heading at one scroll stop; the heading itself is ink on the flat paper ground at 8.9:1 and is fully readable once it scrolls out from under the bar."
+   "reason": "At 390 the kit's fixed phone action bar (nav.actionbar, the Find a calculator button) sits over this heading at one scroll stop; the heading itself is ink on the flat paper ground at about 8.4:1 and is fully readable once it scrolls out from under the bar."
   },
   {
    "check": "hero-lines",
@@ -434,5 +412,5 @@
   }
  ],
  "warnCount": 23,
- "at": "2026-11-13T13:57:35.106Z"
+ "at": "2026-11-13T14:02:10.250Z"
 }

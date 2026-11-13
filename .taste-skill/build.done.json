@@ -1,11 +1,11 @@
 {
  "page": "out/index.html",
- "dir": "C:\\Users\\Izam\\Desktop\\PROYECTO2",
- "kind": "software",
- "start": "2026-11-13T11:45:38.656Z",
- "by": "start.mjs",
  "url": null,
  "root": "out",
+ "kind": "software",
  "category": "construction calculators",
- "primary": "Find a calculator"
+ "primary": "Find a calculator",
+ "rounds": 3,
+ "start": "2026-11-13T14:00:36.191Z",
+ "by": "gate.mjs --start"
 }
