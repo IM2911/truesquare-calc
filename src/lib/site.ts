@@ -23,7 +23,7 @@ export const SITE = {
   description:
     "Free, accurate calculators for concrete, gravel, mulch, tile, flooring, roofing and carpentry projects — in imperial and metric units, with clear formulas and worked examples.",
   /** Canonical origin. Set NEXT_PUBLIC_SITE_URL to the real deployment URL before building for production. */
-  url: cleanUrl(process.env.NEXT_PUBLIC_SITE_URL || "https://truesquare-calc.pages.dev"),
+  url: cleanUrl(process.env.NEXT_PUBLIC_SITE_URL || "https://truesquare-calc.truesquare-calc.workers.dev"),
   /** Public contact address. Empty until the owner configures it. */
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
   /** Formspree form endpoint (public by design — it is visible in the page anyway). Override with NEXT_PUBLIC_CONTACT_FORM_ENDPOINT. */

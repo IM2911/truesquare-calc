@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
-    "postbuild": "node scripts/flatten-segments.mjs"
+    "postbuild": "node scripts/flatten-segments.mjs",
+    "deploy": "npm run build && npx --yes wrangler@4 deploy"
   },
   "dependencies": {
     "lucide-react": "^1.72.0",
