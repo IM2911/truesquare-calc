@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored taste-skill kit (third-party static files served as-is).
+    "public/assets/**",
   ]),
 ]);
 

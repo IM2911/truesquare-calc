@@ -65,9 +65,9 @@ export default async function CalculatorPage(props: PageProps<"/[calculator]">) 
       <Breadcrumbs items={[{ name: category.name, href: `/category/${category.slug}` }, { name: def.title, href: `/${slug}` }]} />
 
       <header className="mt-5 max-w-3xl">
-        <h1 className="text-3xl font-extrabold leading-tight sm:text-4xl">{def.title}</h1>
+        <h1 className="text-4xl sm:text-[56px]">{def.title}</h1>
         <p className="mt-3 text-lg leading-relaxed text-ink-soft">{content.lead}</p>
-        <p className="mt-2 text-xs text-ink-muted">
+        <p className="mt-2 text-[13px] text-ink-muted">
           Formulas reviewed {new Date(SITE.lastReviewed).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} ·{" "}
           <Link href="#formula" className="underline">
             See the formula
@@ -107,7 +107,7 @@ export default async function CalculatorPage(props: PageProps<"/[calculator]">) 
           <div className="space-y-3">
             {content.formulas.map((f) => (
               <div key={f.label}>
-                <p className="mb-1 text-sm font-semibold text-ink">{f.label}</p>
+                <p className="mb-1 text-sm font-medium text-ink">{f.label}</p>
                 <code className="formula">{f.expr}</code>
               </div>
             ))}
@@ -143,7 +143,7 @@ export default async function CalculatorPage(props: PageProps<"/[calculator]">) 
           <div className="not-prose space-y-3">
             {content.faqs.map((f) => (
               <details key={f.q} className="card group p-4 open:shadow-[var(--shadow-raised)]">
-                <summary className="cursor-pointer list-none font-semibold text-ink marker:hidden [&::-webkit-details-marker]:hidden">
+                <summary className="cursor-pointer list-none font-medium text-ink marker:hidden [&::-webkit-details-marker]:hidden">
                   <span className="flex items-start justify-between gap-3">
                     {f.q}
                     <span aria-hidden className="text-brand-700 transition-transform group-open:rotate-45">
@@ -175,15 +175,15 @@ export default async function CalculatorPage(props: PageProps<"/[calculator]">) 
         <aside className="space-y-6">
           {guide && (
             <Link href={`/guides/${guide.slug}`} className="card group block p-5 hover:border-brand-200">
-              <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-brand-700">
+              <span className="flex items-center gap-2 text-[13px] font-medium text-brand-700">
                 <BookOpen aria-hidden className="size-4" /> Guide
               </span>
-              <span className="mt-2 block font-display font-bold text-ink group-hover:text-brand-700">{guide.title}</span>
+              <span className="mt-2 block font-display font-medium text-ink group-hover:text-brand-700">{guide.title}</span>
               <span className="mt-1 block text-sm text-ink-muted">{guide.summary}</span>
             </Link>
           )}
           <div>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-muted">Related calculators</h2>
+            <h2 className="text-sm font-medium text-ink-muted">Related calculators</h2>
             <div className="mt-3 grid gap-3">
               {related.map((c) => (
                 <CalculatorCard key={c.slug} calc={c} />

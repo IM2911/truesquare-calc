@@ -43,7 +43,7 @@ export default async function CategoryPage(props: PageProps<"/category/[slug]">)
 
       {cat.status === "planned" ? (
         <div className="card mt-10 max-w-2xl p-6">
-          <p className="font-semibold">Not available yet</p>
+          <p className="font-medium">Not available yet</p>
           <p className="mt-2 text-ink-soft">
             In the meantime, the <Link href="/calculators" className="text-brand-700 underline">full calculator list</Link> covers concrete, landscaping, flooring, roofing and carpentry.
           </p>
@@ -56,13 +56,13 @@ export default async function CategoryPage(props: PageProps<"/category/[slug]">)
             ))}
           </div>
           <section className="mt-14 max-w-3xl" aria-labelledby="which-heading">
-            <h2 id="which-heading" className="text-2xl font-extrabold">
+            <h2 id="which-heading" className="text-3xl">
               Which calculator do I need?
             </h2>
             <dl className="mt-5 space-y-4">
               {calcs.map((c) => (
                 <div key={c.slug}>
-                  <dt className="font-semibold">
+                  <dt className="font-medium">
                     <Link href={`/${c.slug}`} className="text-brand-700 hover:underline">
                       {c.title}
                     </Link>
@@ -74,7 +74,7 @@ export default async function CategoryPage(props: PageProps<"/category/[slug]">)
           </section>
           {guides.length > 0 && (
             <section className="mt-14" aria-labelledby="guides-heading">
-              <h2 id="guides-heading" className="text-2xl font-extrabold">
+              <h2 id="guides-heading" className="text-3xl">
                 Related guides
               </h2>
               <ul className="mt-4 space-y-2">

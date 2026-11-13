@@ -50,7 +50,7 @@ export function CalculatorSearch({ items }: { items: SearchItem[] }) {
               matches.map((m) => (
                 <li key={m.slug} className="border-b border-line last:border-0">
                   <Link href={`/${m.slug}`} className="block px-4 py-3 hover:bg-brand-50">
-                    <span className="block font-semibold text-ink">{m.title}</span>
+                    <span className="block font-medium text-ink">{m.title}</span>
                     <span className="block text-sm text-ink-muted">{m.summary}</span>
                   </Link>
                 </li>

@@ -20,7 +20,7 @@ export default function GuidesPage() {
         {GUIDES.map((g) => (
           <li key={g.slug}>
             <Link href={`/guides/${g.slug}`} className="card group block h-full p-6 hover:border-brand-200">
-              <span className="font-display text-lg font-bold group-hover:text-brand-700">{g.title}</span>
+              <span className="font-display text-lg font-medium group-hover:text-brand-700">{g.title}</span>
               <span className="mt-2 block text-sm leading-relaxed text-ink-muted">{g.description}</span>
             </Link>
           </li>

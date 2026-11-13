@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
+import { JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap", weight: ["600", "700", "800"] });
+// The pairing dealt by taste-skill (start.mjs, software): Schibsted Grotesk for text and headings, JetBrains Mono for figures.
+const schibsted = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-schibsted", display: "swap", weight: ["400", "500"] });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap", weight: ["400", "500"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -27,14 +26,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
-      <body className="flex min-h-screen flex-col antialiased">
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-      </body>
+    <html lang="en" className={`${schibsted.variable} ${mono.variable}`}>
+      <body className="flex min-h-screen flex-col antialiased">{children}</body>
     </html>
   );
 }

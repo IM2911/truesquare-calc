@@ -1,0 +1,26 @@
+{
+  "palettes": [
+    "teal-on-paper",
+    "teal-on-paper",
+    "teal-on-paper",
+    "teal-on-paper"
+  ],
+  "types": [
+    "schibsted",
+    "mona",
+    "figtree",
+    "figtree"
+  ],
+  "dealt": [
+    "schibsted",
+    "mona",
+    "figtree"
+  ],
+  "moments": [
+    {
+      "id": "iris-opens",
+      "at": "2026-11-13T11:46:41.712Z",
+      "seed": "4ce416ac"
+    }
+  ]
+}

@@ -1,0 +1,438 @@
+{
+ "start": "2026-11-13T11:45:38.656Z",
+ "round": 2,
+ "idle": 0,
+ "errors": 0,
+ "status": "pass",
+ "history": [
+  {
+   "at": "2026-11-13T13:48:34.861Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 2,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-13T13:50:48.871Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 3,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-13T13:57:35.105Z",
+   "mode": "manual",
+   "status": "pass",
+   "fails": 0,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": "out/index.html",
+  "dir": "C:\\Users\\Izam\\Desktop\\PROYECTO2",
+  "kind": "software",
+  "start": "2026-11-13T11:45:38.656Z",
+  "by": "start.mjs",
+  "url": null,
+  "root": "out",
+  "category": "construction calculators",
+  "primary": "Find a calculator"
+ },
+ "manual": true,
+ "roundKey": "51e15c53ed291ce1:df4efdb0",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "bbcd47c2be867e0b",
+ "page": "out/index.html",
+ "found": {
+  "fails": [
+   {
+    "check": "no-visual",
+    "where": "section#calculators \"17 calculators in five trades\"",
+    "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "no-visual"
+    ],
+    "wheres": [
+     "section#calculators \"17 calculators in five trades\""
+    ]
+   },
+   {
+    "check": "text-only",
+    "where": "section#questions \"Questions\"",
+    "msg": "the closing section is only text: no picture, icon, mock or effect in it",
+    "fix": "give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "text-only"
+    ],
+    "wheres": [
+     "section#questions \"Questions\""
+    ]
+   },
+   {
+    "check": "contrast",
+    "where": "div.grid > div.trade.span-4:nth-of-type(2) > h3 > a.link \"Landscaping calculators\"",
+    "msg": "body text over a effect reads at 1.0:1 at its worst tenth (needs 4.5:1), on a busy ground (and 1 more like it: \"Carpentry calculators\")",
+    "fix": "put the text on a calm part of the picture, or on a solid panel",
+    "widths": [
+     390
+    ],
+    "from": "consistency",
+    "ids": [
+     "contrast"
+    ],
+    "wheres": [
+     "div.grid > div.trade.span-4:nth-of-type(2) > h3 > a.link \"Landscaping calculators\""
+    ]
+   },
+   {
+    "check": "hero-lines",
+    "where": "section.hero h1",
+    "msg": "the check fills the h1 to 45 characters (this hero's maxChars in heroes.json), not the page's own: it takes 4 lines at 1440, 3 at most",
+    "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+    "widths": [
+     1440
+    ],
+    "from": "layout",
+    "ids": [
+     "hero-lines"
+    ],
+    "wheres": [
+     "section.hero h1"
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "flush",
+    "where": "section#method > div.mo-io__stage > div.mo-io__cover",
+    "msg": "its first line sits 17px under the top edge of section#method, where the ground changes",
+    "fix": "give the section its padding at the edge where the ground changes (the closing call keeps a clear gap above the footer)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cut-text",
+    "where": "div.hero__media.span-6 > div.ui.calc > div.calc__bar > span.calc__cur \"USD\"",
+    "msg": "cut 15px at the right by the overflow of section.hero.hero--split > div.wrap > div.hero-text.grid > div.hero__media.span-6: a fragment run out through its panel's edge (and 2 more like it: \"144 ft²\", \"118 bags\")",
+    "fix": "give the text room: no overflow clipping a line, no line past its box",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "text-contrast",
+    "where": "div.ui-win__main > ul.ui-win__rows > li.ui-win__row:nth-of-type(2) > span.ui-win__st \"1.36 yd³\"",
+    "msg": "24 lines of text in drawn mocks read under 4.5:1 (2 colour pairs), the worst \"1.36 yd³\" in #5a8d95 on #f7f9f8 at 3.5:1",
+    "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#method / section#questions",
+    "msg": "269px between these sections, +43% against the median 188px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#calculators / section#method",
+    "msg": "uneven space at the edge of a band: 226px outside its edge, 17px inside it (the space on either side of a change of ground reads as one gap only when the two match)",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(1) \"ConcreteSlabs, footings, columns, steps\"",
+    "msg": "\"ConcreteSlabs, footings, columns, steps\" goes to /concrete-calculator, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(2) \"GravelTons and yards for a path\"",
+    "msg": "\"GravelTons and yards for a path\" goes to /gravel-calculator, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(1) > a:nth-of-type(3) \"MulchYards or bags for beds\"",
+    "msg": "\"MulchYards or bags for beds\" goes to /mulch-calculator, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(1) \"TileTiles and boxes, with joints\"",
+    "msg": "\"TileTiles and boxes, with joints\" goes to /tile-calculator, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(2) \"FlooringBoxes with the right waste\"",
+    "msg": "\"FlooringBoxes with the right waste\" goes to /flooring-waste-calculator, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(2) > a:nth-of-type(3) \"Roof pitchX/12, degrees and slope\"",
+    "msg": "\"Roof pitchX/12, degrees and slope\" goes to /roof-pitch-calculator, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(3) > a:nth-of-type(1) \"LandscapingFive calculators\"",
+    "msg": "\"LandscapingFive calculators\" goes to /category/landscaping, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "links",
+    "where": "div.nav__menu > div.wrap.grid > div.menu-col.span-3:nth-of-type(3) > a:nth-of-type(2) \"CarpentryBoard feet and battens\"",
+    "msg": "\"CarpentryBoard feet and battens\" goes to /category/carpentry, which does not exist here",
+    "fix": "point every link at a real section, page or file",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "header.nav > div.wrap.nav__bar > a.nav__logo \"TrueSquare\"",
+    "msg": "\"TrueSquare\" opens a section headed \"Construction calculators for home projects\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "label-centre",
+    "where": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"Find a calculator\"",
+    "msg": "its label sits 18px off-centre (25px of room at the left, 43px at the right)",
+    "fix": "centre the label in its button, or fill the empty side with an icon",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "fade-cut",
+    "where": "div.stage.stage--fade-br > div.sheet > div.sheet__body > p:nth-of-type(5) \"+ 10 % = 36.67 ft³ = 1.36 yd³\"",
+    "msg": "2 lines of div.frame.frame--split fade out under its edge (\"+ 10 % = 36.67 ft³ = 1\", \"36.67 ÷ 0.60 ft³ = 61.\"): drawn at a fraction of #06525c on #f7f9f8, half-erased (inside a held section or scroll scene, whose motion --quick does not check)",
+    "fix": "fit the mock's rows inside its panel (fewer rows, a taller panel), or end the fade below the last whole row: no row half-erased",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-length",
+    "where": "section#questions \"Questions\"",
+    "msg": "2 sections over 90 words a screen outside the UI mocks (\"Questions\" 150, \"17 calculators in five t\" 114); 82 words a screen across the page (410 words in 5 screens): a tech page says it in about 80 or fewer",
+    "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav > div.wrap.nav__bar > div.nav__actions > a.btn.btn--primary \"find a calculator\"",
+    "msg": "\"find a calculator\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav",
+    "where": "header.nav > div.wrap.nav__bar > button.nav__toggle",
+    "msg": "the nav is lopsided: its last item ends 13px inside the content's edge (366px), while its first starts on the other edge",
+    "fix": "start the nav's first item and end its last on the content's two edges",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "text-contrast",
+    "where": "div.calc__form > span.calc__field:nth-of-type(2) > span.calc__input > i \"ft\"",
+    "msg": "12 lines of text in drawn mocks read under 4.5:1 (1 colour pair), the worst \"ft\" in #2f737d on #dfe7e7 at 4.32:1",
+    "fix": "lift the mocks' muted text (labels, meta, initials) to 4.5:1 on their own panel, or set it larger",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "main#top > section.hero.hero--split / section#window",
+    "msg": "118px between these sections, -43% against the median 206px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#questions / footer#contact",
+    "msg": "270px between these sections, +30% against the median 207px of gaps at a change of ground",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "unit-break",
+    "where": "div.grid > div.faq.span-6 > div.faq__item:nth-of-type(2) > p \"Each calculator suggests an allowance: 5\"",
+    "msg": "\"10 %\" breaks across two lines: the number ends one line and its unit starts the next",
+    "fix": "keep a number with its unit: a no-break space (&nbsp;) between them",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 90,
+   "layout": 4
+  }
+ },
+ "open": [],
+ "waived": [
+  {
+   "check": "no-visual",
+   "where": "section#calculators \"17 calculators in five trades\"",
+   "msg": "no picture, effect or mock in this section; a feature section needs a visual",
+   "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "no-visual"
+   ],
+   "wheres": [
+    "section#calculators \"17 calculators in five trades\""
+   ],
+   "reason": "The section is the site's directory: 17 calculator links set as specs rows by trade, the way a price list reads. A picture would only repeat the app frame of the section above it, and the calculators have no photographs of their own."
+  },
+  {
+   "check": "text-only",
+   "where": "section#questions \"Questions\"",
+   "msg": "the closing section is only text: no picture, icon, mock or effect in it",
+   "fix": "give the section a visual: a photograph that fits, the real icons, or a UI fragment on a ground",
+   "widths": [
+    1440,
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "text-only"
+   ],
+   "wheres": [
+    "section#questions \"Questions\""
+   ],
+   "reason": "A FAQ section of five short answers. The page's pictures (the hero calculator, the app frame, the formula sheet) are in the sections before it; a stock photograph here would be decoration with nothing to show."
+  },
+  {
+   "check": "contrast",
+   "where": "div.grid > div.trade.span-4:nth-of-type(2) > h3 > a.link \"Landscaping calculators\"",
+   "msg": "body text over a effect reads at 1.0:1 at its worst tenth (needs 4.5:1), on a busy ground (and 1 more like it: \"Carpentry calculators\")",
+   "fix": "put the text on a calm part of the picture, or on a solid panel",
+   "widths": [
+    390
+   ],
+   "from": "consistency",
+   "ids": [
+    "contrast"
+   ],
+   "wheres": [
+    "div.grid > div.trade.span-4:nth-of-type(2) > h3 > a.link \"Landscaping calculators\""
+   ],
+   "reason": "At 390 the kit's fixed phone action bar (nav.actionbar, the Find a calculator button) sits over this heading at one scroll stop; the heading itself is ink on the flat paper ground at 8.9:1 and is fully readable once it scrolls out from under the bar."
+  },
+  {
+   "check": "hero-lines",
+   "where": "section.hero h1",
+   "msg": "the check fills the h1 to 45 characters (this hero's maxChars in heroes.json), not the page's own: it takes 4 lines at 1440, 3 at most",
+   "fix": "the check fills the h1 to this hero's maxChars, not your own: take the next type pairing the deal printed (start.mjs); when the h1 is final and fits, waive it (target: section.hero h1)",
+   "widths": [
+    1440
+   ],
+   "from": "layout",
+   "ids": [
+    "hero-lines"
+   ],
+   "wheres": [
+    "section.hero h1"
+   ],
+   "reason": "The stress test pads the h1 to the split hero's 45-character maxChars; all three dealt pairings (schibsted, mona, figtree) were built and checked and each takes 4 lines at 1440 in the 519px span-5 column. The page's own h1 (42 characters) takes 3 lines at every width. The first dealt pairing is kept, as the deal instructs."
+  }
+ ],
+ "warnCount": 23,
+ "at": "2026-11-13T13:57:35.106Z"
+}

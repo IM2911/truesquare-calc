@@ -23,7 +23,7 @@ export function AdSlot({ placement }: { placement: AdPlacement }) {
   if (!SITE.adsenseClient) {
     if (process.env.NODE_ENV !== "development") return null;
     return (
-      <div className={`no-print my-8 flex items-center justify-center rounded-xl border-2 border-dashed border-line-strong text-xs text-ink-muted ${MIN_HEIGHT[placement]}`}>
+      <div className={`no-print my-8 flex items-center justify-center rounded-xl border-2 border-dashed border-line-strong text-[13px] text-ink-muted ${MIN_HEIGHT[placement]}`}>
         Ad placement “{placement}” — inactive (dev preview only)
       </div>
     );

@@ -28,9 +28,9 @@ export default function ResourcesPage() {
         {TEMPLATES.map((t) => (
           <li key={t.file} className="card flex flex-col p-6">
             <FileSpreadsheet aria-hidden className="size-7 text-brand-700" />
-            <h2 className="mt-3 text-lg font-bold">{t.title}</h2>
+            <h2 className="mt-3 text-lg font-medium">{t.title}</h2>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-muted">{t.text}</p>
-            <a href={t.file} download className="mt-5 inline-flex items-center gap-2 self-start rounded-lg bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800">
+            <a href={t.file} download className="mt-5 inline-flex items-center gap-2 self-start rounded-lg bg-brand-700 px-4 py-2 text-sm font-medium text-white hover:bg-brand-800">
               <Download aria-hidden className="size-4" /> Download CSV
             </a>
           </li>

@@ -43,3 +43,9 @@ next-env.d.ts
 
 # local tooling
 .claude/settings.local.json
+
+# taste-skill working files (Chrome profile, check crops, screenshots)
+/.taste-skill/chrome-*/
+/.taste-skill/gate/
+/.taste-skill/shots/
+/shots/

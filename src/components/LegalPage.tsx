@@ -15,7 +15,7 @@ export function LegalPage({ title, path, updated = SITE.lastReviewed, children }
     <div className="container-page py-8 sm:py-10">
       <Breadcrumbs items={[{ name: title, href: path }]} />
       <article className="mt-5 max-w-3xl">
-        <h1 className="text-3xl font-extrabold sm:text-4xl">{title}</h1>
+        <h1 className="text-4xl sm:text-[56px]">{title}</h1>
         <p className="mt-2 text-sm text-ink-muted">
           Last updated: <time dateTime={updated}>{new Date(updated).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}</time>
         </p>

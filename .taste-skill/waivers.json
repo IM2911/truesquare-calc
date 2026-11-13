@@ -1,0 +1,22 @@
+[
+  {
+    "check": "hero-lines",
+    "target": "section.hero",
+    "reason": "The stress test pads the h1 to the split hero's 45-character maxChars; all three dealt pairings (schibsted, mona, figtree) were built and checked and each takes 4 lines at 1440 in the 519px span-5 column. The page's own h1 (42 characters) takes 3 lines at every width. The first dealt pairing is kept, as the deal instructs."
+  },
+  {
+    "check": "no-visual",
+    "target": "#calculators",
+    "reason": "The section is the site's directory: 17 calculator links set as specs rows by trade, the way a price list reads. A picture would only repeat the app frame of the section above it, and the calculators have no photographs of their own."
+  },
+  {
+    "check": "text-only",
+    "target": "#questions",
+    "reason": "A FAQ section of five short answers. The page's pictures (the hero calculator, the app frame, the formula sheet) are in the sections before it; a stock photograph here would be decoration with nothing to show."
+  },
+  {
+    "check": "contrast",
+    "target": "div.trade.span-4:nth-of-type(2) > h3",
+    "reason": "At 390 the kit's fixed phone action bar (nav.actionbar, the Find a calculator button) sits over this heading at one scroll stop; the heading itself is ink on the flat paper ground at about 8.4:1 and is fully readable once it scrolls out from under the bar."
+  }
+]

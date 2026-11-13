@@ -26,6 +26,11 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
                 <span aria-current="page" className="text-ink-soft">
                   {c.name}
                 </span>
+              ) : c.href === "/" ? (
+                // The home page is a static file (public/index.html), so it loads as a full page.
+                <a href={c.href} className="hover:text-brand-700 hover:underline">
+                  {c.name}
+                </a>
               ) : (
                 <Link href={c.href} className="hover:text-brand-700 hover:underline">
                   {c.name}
@@ -70,9 +75,9 @@ export function CalculatorCard({ calc }: { calc: CalculatorDefinition }) {
       <span className="flex size-10 items-center justify-center rounded-lg bg-brand-50 text-brand-700">
         <CategoryIcon category={calc.category} />
       </span>
-      <span className="font-display text-base font-bold text-ink group-hover:text-brand-700">{calc.title}</span>
+      <span className="font-display text-base font-medium text-ink group-hover:text-brand-700">{calc.title}</span>
       <span className="text-sm leading-relaxed text-ink-muted">{calc.summary}</span>
-      <span className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-brand-700">
+      <span className="mt-auto inline-flex items-center gap-1 text-sm font-medium text-brand-700">
         Open calculator <ArrowRight aria-hidden className="size-4 transition-transform group-hover:translate-x-0.5" />
       </span>
     </Link>
@@ -86,7 +91,7 @@ export function Callout({ tone = "info", title, children }: { tone?: "info" | "w
     <aside className={`flex gap-3 rounded-xl border-l-4 p-4 text-sm leading-relaxed ${styles}`}>
       <Icon aria-hidden className={`mt-0.5 size-5 shrink-0 ${tone === "warning" ? "text-amber-700" : "text-brand-700"}`} />
       <div>
-        {title && <p className="font-semibold">{title}</p>}
+        {title && <p className="font-medium">{title}</p>}
         <div className={title ? "mt-1 text-ink-soft" : "text-ink-soft"}>{children}</div>
       </div>
     </aside>
@@ -96,8 +101,8 @@ export function Callout({ tone = "info", title, children }: { tone?: "info" | "w
 export function PageHeader({ eyebrow, title, intro }: { eyebrow?: string; title: string; intro?: React.ReactNode }) {
   return (
     <div className="max-w-3xl">
-      {eyebrow && <p className="text-sm font-semibold uppercase tracking-wider text-brand-700">{eyebrow}</p>}
-      <h1 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">{title}</h1>
+      {eyebrow && <p className="text-sm font-medium text-brand-700">{eyebrow}</p>}
+      <h1 className="mt-2 text-4xl sm:text-[56px]">{title}</h1>
       {intro && <div className="mt-4 text-lg leading-relaxed text-ink-soft">{intro}</div>}
     </div>
   );

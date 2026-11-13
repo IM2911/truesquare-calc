@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CalculatorSearch } from "@/components/CalculatorSearch";
 import { Breadcrumbs, CalculatorCard, CategoryIcon, PageHeader } from "@/components/ui";
+import { searchItems } from "@/lib/search";
 import { calculatorsInCategory } from "@/lib/calculators/registry";
 import { CATEGORIES } from "@/lib/categories";
 
@@ -17,9 +19,12 @@ export default function CalculatorsPage() {
       <div className="mt-5">
         <PageHeader title="All calculators" intro={<p>Seventeen calculators across five project types. Each one works in imperial and metric units and explains exactly how it calculates.</p>} />
       </div>
+      <div className="mt-8">
+        <CalculatorSearch items={searchItems()} />
+      </div>
       {CATEGORIES.filter((c) => c.status === "live").map((cat) => (
         <section key={cat.slug} className="mt-12" aria-labelledby={`h-${cat.slug}`}>
-          <h2 id={`h-${cat.slug}`} className="flex items-center gap-2 text-2xl font-extrabold">
+          <h2 id={`h-${cat.slug}`} className="flex items-center gap-2 text-3xl">
             <CategoryIcon category={cat.slug} className="size-6 text-brand-700" />
             <Link href={`/category/${cat.slug}`} className="hover:text-brand-700">
               {cat.name}

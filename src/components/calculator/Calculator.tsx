@@ -61,7 +61,7 @@ export function Calculator({ slug }: Props) {
   return (
     <section aria-labelledby={`${formId}-title`} className="card overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-brand-50/60 px-4 py-3 sm:px-6">
-        <h2 id={`${formId}-title`} className="text-base font-bold">
+        <h2 id={`${formId}-title`} className="text-base font-medium">
           {def.title}
         </h2>
         <div className="flex flex-wrap items-center gap-2 no-print">
@@ -93,7 +93,7 @@ export function Calculator({ slug }: Props) {
         >
           {groups.map(([group, fields]) => (
             <fieldset key={group} className="space-y-4">
-              <legend className="mb-1 text-xs font-semibold uppercase tracking-wider text-ink-muted">{group}</legend>
+              <legend className="mb-1 text-[13px] font-medium text-ink-muted">{group}</legend>
               <div className="grid gap-4 sm:grid-cols-2">
                 {fields.map((f) => (
                   <FieldInput key={f.id} field={f} value={raw[f.id] ?? ""} error={result.errors[f.id]} system={system} currency={currency} onChange={update} formId={formId} />
@@ -112,7 +112,7 @@ export function Calculator({ slug }: Props) {
 
         <div className="border-t border-line bg-canvas/70 p-4 sm:p-6 lg:border-l lg:border-t-0">
           <div aria-live="polite" aria-atomic="false">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Results</h3>
+            <h3 className="text-[13px] font-medium text-ink-muted">Results</h3>
             {result.formError && (
               <p id={`${formId}-formerror`} role="alert" className="mt-3 flex gap-2 rounded-lg bg-danger-bg p-3 text-sm text-danger">
                 <AlertTriangle aria-hidden className="mt-0.5 size-4 shrink-0" />
@@ -149,14 +149,14 @@ export function Calculator({ slug }: Props) {
                 <button
                   type="button"
                   onClick={copyResults}
-                  className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand-700 px-3 py-2 text-sm font-semibold text-white hover:bg-brand-800 no-print"
+                  className="mt-4 inline-flex items-center gap-2 rounded-lg bg-brand-700 px-3 py-2 text-sm font-medium text-white hover:bg-brand-800 no-print"
                 >
                   {copied ? <Check aria-hidden className="size-4" /> : <Copy aria-hidden className="size-4" />}
                   {copied ? "Copied" : "Copy results"}
                 </button>
               </>
             )}
-            <p className="mt-4 text-xs leading-relaxed text-ink-muted">
+            <p className="mt-4 text-[13px] leading-relaxed text-ink-muted">
               Estimates only. Prices are your own inputs in {currency}; material properties vary by product and supplier.
             </p>
           </div>
@@ -237,7 +237,7 @@ function FieldInput({ field, value, error, system, currency, formId, onChange }:
           ))}
         </select>
         {field.help && (
-          <p id={helpId} className="mt-1.5 text-xs leading-relaxed text-ink-muted">
+          <p id={helpId} className="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
             {field.help}
           </p>
         )}
@@ -279,12 +279,12 @@ function FieldInput({ field, value, error, system, currency, formId, onChange }:
         )}
       </div>
       {error && (
-        <p id={errorId} className="mt-1.5 text-xs font-medium text-danger">
+        <p id={errorId} className="mt-1.5 text-[13px] font-medium text-danger">
           {error}
         </p>
       )}
       {field.help && (
-        <p id={helpId} className="mt-1.5 text-xs leading-relaxed text-ink-muted">
+        <p id={helpId} className="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
           {field.help}
         </p>
       )}
@@ -295,11 +295,11 @@ function FieldInput({ field, value, error, system, currency, formId, onChange }:
 function PrimaryResult({ item, system, currency }: { item: ResultItem; system: UnitSystem; currency: string }) {
   const f = formatResult(item, system, currency);
   return (
-    <div className="rounded-xl border border-brand-200 bg-surface p-4 shadow-[var(--shadow-card)]">
+    <div className="rounded-xl border border-brand-200 bg-surface p-4">
       <dt className="text-sm text-ink-soft">{item.label}</dt>
-      <dd className="tabular mt-1 font-display text-2xl font-extrabold text-brand-800">{f.main}</dd>
+      <dd className="tabular mt-1 font-display text-3xl text-brand-800">{f.main}</dd>
       {f.secondary && <dd className="tabular mt-0.5 text-sm text-ink-muted">{f.secondary}</dd>}
-      {item.note && <dd className="mt-1 text-xs text-ink-muted">{item.note}</dd>}
+      {item.note && <dd className="mt-1 text-[13px] text-ink-muted">{item.note}</dd>}
     </div>
   );
 }
@@ -310,11 +310,11 @@ function SecondaryResult({ item, system, currency }: { item: ResultItem; system:
     <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 px-4 py-2.5">
       <dt className="text-sm text-ink-soft">
         {item.label}
-        {item.note && <span className="block text-xs text-ink-muted">{item.note}</span>}
+        {item.note && <span className="block text-[13px] text-ink-muted">{item.note}</span>}
       </dt>
-      <dd className="tabular text-right text-sm font-semibold text-ink">
+      <dd className="tabular text-right text-sm font-medium text-ink">
         {f.main}
-        {f.secondary && <span className="block text-xs font-normal text-ink-muted">{f.secondary}</span>}
+        {f.secondary && <span className="block text-[13px] font-normal text-ink-muted">{f.secondary}</span>}
       </dd>
     </div>
   );

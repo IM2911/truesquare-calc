@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="soft" data-buttons="arrow" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TrueSquare: construction calculators for home projects</title>
+<meta name="description" content="Free calculators for concrete, gravel, mulch, tile and roofing. Imperial and metric units, bag and box counts, and the formula behind every result.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TrueSquare: construction calculators for home projects">
+<meta property="og:description" content="Free calculators for concrete, gravel, mulch, tile and roofing, in imperial and metric units.">
+<meta property="og:url" content="https://truesquare-calc.truesquare-calc.workers.dev/">
+<meta property="og:image" content="https://truesquare-calc.truesquare-calc.workers.dev/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#f7f9f8">
+<link rel="canonical" href="https://truesquare-calc.truesquare-calc.workers.dev/">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preload" href="/assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/system.css">
+<link rel="stylesheet" href="/assets/ui/cards.css">
+<link rel="stylesheet" href="/assets/motion/motion.css">
+<link rel="stylesheet" href="/assets/layout/layout.css">
+<link rel="stylesheet" href="/assets/icons/icon.css">
+<style>
+/* Schibsted Grotesk and JetBrains Mono (SIL Open Font License), self-hosted: the site's CSP allows no third-party fonts */
+@font-face { font-family: "Schibsted Grotesk"; font-style: normal; font-weight: 400 700; font-display: swap; src: url(/assets/fonts/schibsted-grotesk-latin.woff2) format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 500; font-display: swap; src: url(/assets/fonts/jetbrains-mono-latin.woff2) format("woff2"); }
+:root {
+  --p-bg: #f7f9f8; --p-surface: #ebf0ee; --p-ink: #06525c; --p-muted: #2f737d;
+  --p-accent: #06525c; --p-accent-ink: #f7f9f8; --p-action: #06525c; --p-action-ink: #f7f9f8;
+  --p-inv-bg: #06525c; --p-inv-surface: #205d66; --p-inv-ink: #f7f9f8; --p-inv-muted: #c1d0d2;
+  --p-inv-accent: #f7f9f8; --p-inv-accent-ink: #06525c; --p-inv-action: #f7f9f8; --p-inv-action-ink: #06525c;
+  --font-display: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-text: "Schibsted Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 400;
+  --display-tracking: -0.035em;
+  --display-tracking-xl: -0.042em;
+  --ly-scale: 0.98;
+}
+</style>
+<link rel="stylesheet" href="/assets/ui/base.css">
+<link rel="stylesheet" href="/assets/ui/window/fragment.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="/assets/moments/moments.js">
+<link rel="modulepreload" href="/assets/moments/lib.js">
+<link rel="modulepreload" href="/assets/moments/iris-opens/moment.js">
+<!-- page CSS: only what sits inside a visual (the calculator windows) -->
+<style>
+  .nav__logo svg { width: 28px; height: 28px; flex: none; }
+  .footer__mark svg { width: 44px; height: 44px; margin-right: 14px; }
+
+  /* the calculator window: the product's own UI as live HTML, drawn with the kit's .ui tokens */
+  .calc { width: 100%; background: var(--u-bg); color: var(--u-ink); font: 400 14px/1.4 var(--font-text); }
+  .calc__bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--u-line); }
+  .calc__title { font-weight: 500; font-size: 15px; }
+  .calc__seg { margin-left: auto; display: inline-flex; border: 1px solid var(--u-border); border-radius: 8px; padding: 2px; font-size: 12px; }
+  .calc__seg span { padding: 3px 10px; border-radius: 6px; color: var(--u-muted); }
+  .calc__seg .is-on { background: var(--p-ink); color: var(--p-bg); }
+  .calc__cur { font-size: 12px; color: var(--u-muted); border: 1px solid var(--u-border); border-radius: 8px; padding: 4px 8px; }
+  .calc__body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .calc__form { padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-content: start; }
+  .calc__group { grid-column: 1 / -1; font-size: 12px; font-weight: 500; color: var(--u-muted); margin-top: 4px; }
+  .calc__field { display: grid; gap: 4px; }
+  .calc__field > span:first-child { font-size: 12px; color: var(--u-muted); }
+  .calc__input { display: flex; border: 1px solid var(--u-border); border-radius: 8px; overflow: hidden; height: 34px; }
+  .calc__input b { flex: 1; font-weight: 400; padding: 7px 10px; font-variant-numeric: tabular-nums; }
+  .calc__input i { font-style: normal; padding: 7px 10px; color: var(--u-muted); border-left: 1px solid var(--u-line); background: color-mix(in oklab, var(--u-bg) 90%, var(--p-ink)); }
+  .calc__out { padding: 16px; display: grid; gap: 10px; align-content: start; border-left: 1px solid var(--u-line); background: color-mix(in oklab, var(--u-bg) 94%, var(--p-ink)); }
+  .calc__big { border: 1px solid var(--u-border); border-radius: 10px; background: var(--u-bg); padding: 12px 14px; }
+  .calc__big span { display: block; font-size: 12px; color: var(--u-muted); }
+  .calc__big b { display: block; font-weight: 500; font-size: 26px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .calc__big small { font-size: 12px; color: var(--u-muted); }
+  .calc__row { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--u-line); }
+  .calc__row b { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .calc__formula { font: 400 12px/1.6 var(--font-mono); color: var(--u-ink); background: var(--u-bg); border: 1px solid var(--u-line); border-radius: 8px; padding: 8px 10px; }
+
+  /* the hero's window sits in the frame on the surface, cut by its right and bottom edges */
+  .hero__media .calc-win { position: absolute; left: 40px; top: 40px; right: 0; border: 1px solid var(--u-border); border-right: 0; border-radius: var(--u-r) 0 0 var(--u-r); box-shadow: var(--u-shadow); overflow: hidden; }
+  .hero__media::after { content: ""; position: absolute; inset: auto 0 0 0; height: 96px; background: linear-gradient(transparent, var(--surface)); pointer-events: none; }
+  .hero__media .calc__body { grid-template-columns: minmax(0, 1fr); }
+  .hero__media .calc__out { border-left: 0; border-top: 1px solid var(--u-line); }
+
+  /* the app frame: the list of calculators beside the open one (sections-library.md, app-frame) */
+  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  @media (max-width: 1023px) {
+    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .app > .app__pane--list { max-height: 252px; }
+    .app > .app__pane--list::after { display: none; }
+    .app .ui-win__side { display: none; }
+    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+  }
+  @media (max-width: 639px) {
+    .app.ui { grid-template-rows: minmax(0, 1fr); }
+    .app > .app__pane--list { display: none; }
+    .app > .app__pane + .app__pane { border-top: 0; }
+    .calc__body { grid-template-columns: minmax(0, 1fr); }
+    .calc__out { border-left: 0; border-top: 1px solid var(--u-line); }
+    .hero__media .calc-win { left: 16px; top: 16px; }
+  }
+
+  /* the method frame: the formula sheet and its test run */
+  .sheet { position: absolute; left: 56px; top: 56px; width: 640px; background: var(--u-bg); color: var(--u-ink); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); overflow: hidden; }
+  .sheet__head { padding: 12px 16px; border-bottom: 1px solid var(--u-line); font: 500 14px/1.4 var(--font-text); }
+  .sheet__body { padding: 16px; display: grid; gap: 10px; font: 400 13px/1.7 var(--font-mono); }
+  .sheet__body p { margin: 0; }
+  .sheet__body .k { color: var(--u-muted); }
+  .sheet__pass { margin-top: 6px; padding: 10px 12px; border-radius: 8px; background: color-mix(in oklab, #1f8a4c 12%, var(--u-bg)); color: #14532d; }
+  @media (max-width: 1023px) { .sheet { left: 24px; top: 24px; width: 560px; } }
+  @media (max-width: 639px) { .sheet { left: 16px; top: 16px; width: 440px; } }
+
+  /* the catalogue: one list per trade, three to a row */
+  .trade h3 { margin: 0 0 var(--s-3); font-size: var(--t-card); }
+  .trade .rows li { padding-block: 10px; }
+  .trade .rows a { color: inherit; text-decoration: none; }
+
+  /* section heights at the tablet and the phone (layout-v4.md section 2): the catalogue stacks to two screens */
+  @media (min-width: 640px) and (max-width: 1023px) { #calculators { --h: 2 } #calculators .trade { grid-column: span 6; } }
+  @media (max-width: 639px) { #calculators { --hm: 2 } .trade .rows a { display: flex; align-items: center; min-height: 46px; } .trade .rows li { padding-block: 0; } }
+  /* the method frame is square on a desktop so the section ends with its content */
+  @media (min-width: 1024px) { #method .frame--split { aspect-ratio: 1; } }
+  /* the floating metric card and the extra result rows only where they have room */
+  @media (max-width: 1279px) { .hero__media .ly-float { display: none; } .app .calc__row:nth-of-type(n+3) { display: none; } }
+  /* the method frame is shorter on a tablet and a phone so its section stays one screen */
+  @media (max-width: 1023px) { #method .frame--split { aspect-ratio: 16 / 9; } #method .rows { display: none; } }
+  /* the phone copy is cut to one screen (layout-v4.md section 2: cut the phone copy) */
+  @media (max-width: 639px) {
+    #questions .stack-4 > p, #questions .stack-4 > .link, #questions .faq__item--desk { display: none; }
+    .footer__legal { flex-direction: column; gap: var(--s-2); }
+  }
+  .footer__legal > span { margin-right: auto; }
+</style>
+</head>
+<body>
+<!-- type: software (a free web tool: calculators people use in the browser)
+     deal: hero split, nav nav-mega, close close-type, footer footer-dark, rhythm surface-pairs, buttons arrow,
+           mark: the client's own logo (replaces the dealt "initial"), grounds none
+     palette teal-on-paper: the third dealt; card-pastels' pink and blue-black's near-black clash with the client's teal logo
+     type schibsted (Schibsted Grotesk + JetBrains Mono), the first dealt; all three dealt pairings (schibsted, mona, figtree) fail the hero-lines stress test equally, so the first is kept and the finding waived, radius soft
+     effect: none (kept off for speed on a utility site; see the report)
+     moments: iris-opens on #method (the page's turn from "what" to "why you can trust the numbers") -->
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="#top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#06525c"/><path d="M16 14h9v27h23v9H16z" fill="#fff"/><rect x="38" y="14" width="10" height="10" rx="2" fill="#f6bd1f"/></svg>TrueSquare</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item">
+        <a class="nav__link" href="#calculators">Calculators <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">Concrete and ground</p>
+              <a href="/concrete-calculator">Concrete<span>Slabs, footings, columns, steps</span></a>
+              <a href="/gravel-calculator">Gravel<span>Tons and yards for a path</span></a>
+              <a href="/mulch-calculator">Mulch<span>Yards or bags for beds</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">Inside and up top</p>
+              <a href="/tile-calculator">Tile<span>Tiles and boxes, with joints</span></a>
+              <a href="/flooring-waste-calculator">Flooring<span>Boxes with the right waste</span></a>
+              <a href="/roof-pitch-calculator">Roof pitch<span>X/12, degrees and slope</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">By trade</p>
+              <a href="/category/landscaping">Landscaping<span>Five calculators</span></a>
+              <a href="/category/carpentry">Carpentry<span>Board feet and battens</span></a>
+              <a href="/calculators">All 17<span>Every calculator on one page</span></a>
+            </div>
+            <a class="menu-card span-3" href="/guides/how-much-concrete-do-i-need">
+              <div class="panel"><div class="calc__formula" style="margin:16px">V = 10 × 10 × 0.333 ft<br>= 33.3 ft³ = 1.23 yd³</div></div>
+              <span class="t-card">How much concrete you need</span>
+              <span class="t-small muted">The guide behind the numbers</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="/guides">Guides</a></div>
+      <div class="nav__item"><a class="nav__link" href="/resources">Templates</a></div>
+      <div class="nav__item"><a class="nav__link" href="/about">About</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary" href="#calculators">Find a calculator</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--split" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text grid hero__grid">
+      <div class="hero__text span-5">
+        <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>17 calculators, in imperial and metric</p>
+        <h1 id="hero-h">Construction calculators for home projects</h1>
+        <p class="hero__lead">Enter your measurements and get the concrete, gravel, tile or roofing to buy, with bag and box counts and the formula behind every result.</p>
+        <div class="btn-row"><a class="btn btn--primary" href="#calculators">Find a calculator<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a><a class="btn btn--secondary" href="/tile-calculator">Try the tile calculator</a></div>
+      </div>
+      <div class="hero__media span-6 start-7">
+        <div class="ui calc calc-win" role="img" aria-label="The concrete slab calculator: a 12 by 12 foot slab, 4 inches thick, needs 1.96 cubic yards or 88 bags of 80 pounds">
+          <div class="calc__bar"><span class="calc__title">Concrete Slab Calculator</span><span class="calc__seg"><span class="is-on">Imperial</span><span>Metric</span></span><span class="calc__cur">USD</span></div>
+          <div class="calc__body">
+            <div class="calc__form">
+              <span class="calc__group">Slab</span>
+              <span class="calc__field"><span>Slab length</span><span class="calc__input"><b>12</b><i>ft</i></span></span>
+              <span class="calc__field"><span>Slab width</span><span class="calc__input"><b>12</b><i>ft</i></span></span>
+              <span class="calc__field"><span>Slab thickness</span><span class="calc__input"><b>4</b><i>in</i></span></span>
+              <span class="calc__field"><span>Waste allowance</span><span class="calc__input"><b>10</b><i>%</i></span></span>
+            </div>
+            <div class="calc__out">
+              <div class="calc__big"><span>Concrete to order</span><b>1.96 yd³</b><small>52.8 ft³ · 1.5 m³</small></div>
+              <div class="calc__big"><span>80 lb bags</span><b>88 bags</b></div>
+              <div class="calc__row"><span>Slab area</span><b>144 ft²</b></div>
+              <div class="calc__row"><span>60 lb bags</span><b>118 bags</b></div>
+              <div class="calc__formula">V = 12 × 12 × 0.333 ft × 1.10 = 52.8 ft³</div>
+            </div>
+          </div>
+        </div>
+        <div class="ly-float">
+          <div class="ly-float__row"><span class="ly-live">Metric</span><span>25 kg bags</span></div>
+          <div class="ly-float__title">The same slab: 1.5 m³, 128 bags</div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="window" aria-labelledby="window-h">
+    <div class="wrap">
+      <div class="grid">
+        <h2 id="window-h" class="span-5">Every calculator shows its working</h2>
+        <p class="span-6 start-7">Pick a calculator, type your sizes and read what to buy. Each result shows the rounded purchase, the exact figure and the formula, in feet or metres. <a class="link" href="/calculators">See all 17 calculators</a></p>
+      </div>
+      <div class="ui app fill" role="img" aria-label="The tile calculator open beside a list of calculators with their results: a 12 by 10 foot floor of 12 inch tiles needs 130 tiles, or 13 boxes">
+        <div class="app__pane app__pane--list">
+          <div class="ui ui-panel ui-win" data-ui="window" data-open="Ready" data-work="Working" data-done="Done">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb">TrueSquare <i>/</i> <b>Calculators</b></span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">Search</span><span class="ui-kbd">/</span></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on">All<em>17</em></span>
+                <span class="ui-win__nav">Concrete<em>4</em></span>
+                <span class="ui-win__nav">Landscaping<em>5</em></span>
+                <span class="ui-win__nav">Flooring<em>4</em></span>
+                <span class="ui-win__nav">Roofing<em>2</em></span>
+                <span class="ui-win__nav">Carpentry<em>2</em></span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>Calculator</span><span>Example</span><span>Result</span><span></span></div>
+                <ul class="ui-win__rows">
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">Fl</span><span class="ui-win__who">Tile</span><span class="ui-win__sub">12 × 10 ft floor</span><span class="ui-win__st is-you" data-st>130 tiles</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">Co</span><span class="ui-win__who">Concrete</span><span class="ui-win__sub">10 × 10 ft slab, 4 in</span><span class="ui-win__st is-done" data-st>1.36 yd³</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">Co</span><span class="ui-win__who">Concrete slab</span><span class="ui-win__sub">12 × 12 ft, 4 in</span><span class="ui-win__st is-done" data-st>88 bags</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">Co</span><span class="ui-win__who">Concrete bags</span><span class="ui-win__sub">6 × 4 ft pad</span><span class="ui-win__st is-done" data-st>15 bags</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">Co</span><span class="ui-win__who">Cubic yards</span><span class="ui-win__sub">10 × 10 ft, 6 in</span><span class="ui-win__st is-done" data-st>1.85 yd³</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">La</span><span class="ui-win__who">Gravel</span><span class="ui-win__sub">20 × 10 ft path, 3 in</span><span class="ui-win__st is-done" data-st>2.04 yd³</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">La</span><span class="ui-win__who">Gravel driveway</span><span class="ui-win__sub">50 × 10 ft, three layers</span><span class="ui-win__st is-done" data-st>24.1 tons</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">La</span><span class="ui-win__who">Mulch</span><span class="ui-win__sub">20 × 4 ft bed, 3 in</span><span class="ui-win__st is-done" data-st>11 bags</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">La</span><span class="ui-win__who">Topsoil</span><span class="ui-win__sub">20 × 10 ft, 4 in</span><span class="ui-win__st is-done" data-st>2.72 yd³</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">Fl</span><span class="ui-win__who">Shower tile</span><span class="ui-win__sub">Three walls to 84 in</span><span class="ui-win__st is-done" data-st>82 tiles</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">Ro</span><span class="ui-win__who">Roof pitch</span><span class="ui-win__sub">Rise 6 in a run of 12</span><span class="ui-win__st is-done" data-st>26.57°</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">Ro</span><span class="ui-win__who">Roof area</span><span class="ui-win__sub">40 × 30 ft at 6/12</span><span class="ui-win__st is-done" data-st>16.5 squares</span><span class="ui-win__age"></span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">Ca</span><span class="ui-win__who">Board and batten</span><span class="ui-win__sub">12 ft wall, 16 in gaps</span><span class="ui-win__st is-done" data-st>8 battens</span><span class="ui-win__age"></span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app__pane app__pane--open">
+          <div class="calc">
+            <div class="calc__bar"><span class="calc__title">Tile Calculator</span><span class="calc__seg"><span class="is-on">Imperial</span><span>Metric</span></span><span class="calc__cur">USD</span></div>
+            <div class="calc__body">
+              <div class="calc__form">
+                <span class="calc__group">Area</span>
+                <span class="calc__field"><span>Length</span><span class="calc__input"><b>12</b><i>ft</i></span></span>
+                <span class="calc__field"><span>Width</span><span class="calc__input"><b>10</b><i>ft</i></span></span>
+                <span class="calc__group">Tile</span>
+                <span class="calc__field"><span>Tile length</span><span class="calc__input"><b>12</b><i>in</i></span></span>
+                <span class="calc__field"><span>Tile width</span><span class="calc__input"><b>12</b><i>in</i></span></span>
+                <span class="calc__field"><span>Grout joint</span><span class="calc__input"><b>1/8</b><i>in</i></span></span>
+                <span class="calc__field"><span>Cutting waste</span><span class="calc__input"><b>10</b><i>%</i></span></span>
+                <span class="calc__group">Boxes</span>
+                <span class="calc__field"><span>Tiles per box</span><span class="calc__input"><b>10</b><i>tiles</i></span></span>
+                <span class="calc__field"><span>Price per box</span><span class="calc__input"><b></b><i>USD</i></span></span>
+              </div>
+              <div class="calc__out">
+                <div class="calc__big"><span>Tiles to buy</span><b>130 tiles</b><small>117.5 before waste and rounding</small></div>
+                <div class="calc__big"><span>Boxes</span><b>13 boxes</b></div>
+                <div class="calc__row"><span>Area to tile</span><b>120 ft²</b></div>
+                <div class="calc__row"><span>In metric</span><b>11.15 m²</b></div>
+                <div class="calc__row"><span>Tiles without waste</span><b>118</b></div>
+                <div class="calc__formula">N = ⌈ 17,280 in² ÷ (12.125 in)² × 1.10 ⌉ = 130</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calculators" aria-labelledby="calculators-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="calculators-h">17 calculators in five trades</h2>
+        <p>Each with its formula and a worked example.</p>
+      </div>
+      <div class="grid">
+        <div class="trade span-4">
+          <h3><a class="link" href="/category/concrete">Concrete calculators</a></h3>
+          <ul class="rows">
+            <li><a class="rows__name" href="/concrete-calculator">Concrete Calculator</a><span class="rows__value">yd³, m³, bags</span></li>
+            <li><a class="rows__name" href="/concrete-slab-calculator">Concrete Slab Calculator</a><span class="rows__value">slabs</span></li>
+            <li><a class="rows__name" href="/concrete-bag-calculator">Concrete Bag Calculator</a><span class="rows__value">bags</span></li>
+            <li><a class="rows__name" href="/cubic-yard-calculator">Cubic Yard Calculator</a><span class="rows__value">yd³, ft³, m³</span></li>
+          </ul>
+        </div>
+        <div class="trade span-4">
+          <h3><a class="link" href="/category/landscaping">Landscaping calculators</a></h3>
+          <ul class="rows">
+            <li><a class="rows__name" href="/gravel-calculator">Gravel Calculator</a><span class="rows__value">tons, yd³</span></li>
+            <li><a class="rows__name" href="/pea-gravel-calculator">Pea Gravel Calculator</a><span class="rows__value">bags, tons</span></li>
+            <li><a class="rows__name" href="/gravel-driveway-calculator">Gravel Driveway Calculator</a><span class="rows__value">layers</span></li>
+            <li><a class="rows__name" href="/mulch-calculator">Mulch Calculator</a><span class="rows__value">yd³, bags</span></li>
+            <li><a class="rows__name" href="/topsoil-calculator">Topsoil Calculator</a><span class="rows__value">yd³, tons</span></li>
+          </ul>
+        </div>
+        <div class="trade span-4">
+          <h3><a class="link" href="/category/flooring">Flooring and tile calculators</a></h3>
+          <ul class="rows">
+            <li><a class="rows__name" href="/tile-calculator">Tile Calculator</a><span class="rows__value">tiles, boxes</span></li>
+            <li><a class="rows__name" href="/shower-tile-calculator">Shower Tile Calculator</a><span class="rows__value">walls</span></li>
+            <li><a class="rows__name" href="/flooring-waste-calculator">Flooring Waste Calculator</a><span class="rows__value">boxes</span></li>
+            <li><a class="rows__name" href="/grout-calculator">Grout Calculator</a><span class="rows__value">lb, kg</span></li>
+          </ul>
+        </div>
+        <div class="trade span-4">
+          <h3><a class="link" href="/category/roofing">Roofing calculators</a></h3>
+          <ul class="rows">
+            <li><a class="rows__name" href="/roof-pitch-calculator">Roof Pitch Calculator</a><span class="rows__value">X/12, degrees</span></li>
+            <li><a class="rows__name" href="/roof-area-calculator">Roof Area Calculator</a><span class="rows__value">squares</span></li>
+          </ul>
+        </div>
+        <div class="trade span-4">
+          <h3><a class="link" href="/category/carpentry">Carpentry calculators</a></h3>
+          <ul class="rows">
+            <li><a class="rows__name" href="/board-foot-calculator">Board Foot Calculator</a><span class="rows__value">board feet</span></li>
+            <li><a class="rows__name" href="/board-and-batten-calculator">Board and Batten Calculator</a><span class="rows__value">spacing</span></li>
+          </ul>
+        </div>
+        <div class="trade trade--guides span-4">
+          <h3><a class="link" href="/guides">Calculator guides</a></h3>
+          <ul class="rows">
+            <li><a class="rows__name" href="/guides/cubic-yards-vs-cubic-feet">Cubic yards and cubic feet</a><span class="rows__value">units</span></li>
+            <li><a class="rows__name" href="/guides/how-to-calculate-roof-pitch">Roof pitch in degrees</a><span class="rows__value">roofing</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-surface" id="method" aria-labelledby="method-h" data-moment="iris-opens" data-moment-opts='{"from": "base"}'>
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-5 stack-6">
+          <h2 id="method-h">The formula behind each calculator, tested in code</h2>
+          <p class="t-lead">Every page shows its formula, a worked example and its assumptions. The same functions run in 135 automated tests before each release.</p>
+          <ul class="rows">
+            <li><span class="rows__name">Exact unit conversions</span><span class="rows__value">1 in = 25.4 mm</span></li>
+            <li><span class="rows__name">Bag yields and densities you can edit</span><span class="rows__value">your product</span></li>
+            <li><span class="rows__name">Results always rounded up</span><span class="rows__value">whole bags</span></li>
+          </ul>
+          <a class="link" href="/about">Read how we build calculators</a>
+        </div>
+        <div class="frame frame--split span-6 start-7">
+          <div class="stage stage--fade-br">
+            <div class="sheet" role="img" aria-label="The concrete formula with a worked example and a passing test run">
+              <div class="sheet__head">Concrete Calculator · formula</div>
+              <div class="sheet__body">
+                <p><span class="k">volume</span>  V = length × width × thickness</p>
+                <p><span class="k">order</span>   V × (1 + waste ÷ 100)</p>
+                <p><span class="k">bags</span>    ⌈ order ÷ yield per bag ⌉</p>
+                <p><span class="k">example</span> 10 × 10 × 0.333 ft = 33.33 ft³</p>
+                <p><span class="k">        </span> + 10 % = 36.67 ft³ = 1.36 yd³</p>
+                <p><span class="k">        </span> 36.67 ÷ 0.60 ft³ = 61.1 → 62 bags</p>
+                <p class="sheet__pass">✓ 135 tests passed · units, rounding, invalid input</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-surface" id="questions" aria-labelledby="questions-h">
+    <div class="wrap">
+      <div class="grid">
+        <div class="span-5 stack-4">
+          <h2 id="questions-h">Questions</h2>
+          <p>The ones people ask before they order materials.</p>
+          <a class="link" href="/guides">Read the guides</a>
+        </div>
+        <div class="faq span-6 start-7">
+          <div class="faq__item"><h3>How accurate is each calculator?</h3><p>The maths is exact. The result is only as good as your measurements and the bag yield or density you enter, so measure twice.</p></div>
+          <div class="faq__item"><h3>How much extra should I order?</h3><p>Each calculator suggests an allowance: 5 to 10 % for concrete, about 10 % for straight tile, 15 % for showers and diagonal layouts.</p></div>
+          <div class="faq__item faq__item--desk"><h3>How many 80 lb bags make a cubic yard?</h3><p>About 45, at the common yield of 0.60 ft³ a bag. Check the yield printed on your product.</p></div>
+          <div class="faq__item"><h3>Can a calculator size my footing or slab?</h3><p>No. It works out quantities. Thickness and reinforcement come from your plans, an engineer and your local building code.</p></div>
+          <div class="faq__item"><h3>Is it free, and is my data stored?</h3><p>It is free and needs no account. Calculations run in your browser and nothing you type is sent to us.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--dark ground-inverse" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head">
+        <h2 id="close-h">Work out your materials before you buy</h2>
+        <p class="t-small muted">Free, with no account. Imperial and metric.</p>
+      </div>
+      <a class="btn btn--primary btn--xl btn--wide" href="#calculators">Find a calculator<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="footer__mark" href="#top"><svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#f7f9f8"/><path d="M16 14h9v27h23v9H16z" fill="#06525c"/><rect x="38" y="14" width="10" height="10" rx="2" fill="#f6bd1f"/></svg>TrueSquare</a>
+          <p class="footer__lede">Material calculators for concrete, landscaping, flooring, roofing and carpentry.</p>
+        </div>
+        <div class="span-2 footer__col"><h3>Trades</h3><ul><li><a href="/category/concrete">Concrete</a></li><li><a href="/category/landscaping">Landscaping</a></li><li><a href="/category/flooring">Flooring</a></li><li><a href="/category/roofing">Roofing</a></li><li><a href="/category/carpentry">Carpentry</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Popular</h3><ul><li><a href="/concrete-calculator">Concrete</a></li><li><a href="/gravel-calculator">Gravel</a></li><li><a href="/mulch-calculator">Mulch</a></li><li><a href="/tile-calculator">Tile</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Guides</h3><ul><li><a href="/guides">All guides</a></li><li><a href="/resources">Templates</a></li><li><a href="/calculators">All calculators</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>Company</h3><ul><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/disclaimer">Disclaimer</a></li><li><a href="/affiliate-disclosure">Affiliate disclosure</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 TrueSquare</span>
+        <a href="/privacy-policy">Privacy policy</a>
+        <a href="/terms">Terms of use</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<nav class="actionbar" aria-label="Quick actions">
+  <a class="btn btn--primary" href="#calculators">Find a calculator</a>
+</nav>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"TrueSquare","url":"https://truesquare-calc.truesquare-calc.workers.dev/","inLanguage":"en"}</script>
+<script type="module" src="/assets/system.js"></script>
+<script type="module" src="/assets/motion/motion.js"></script>
+<script type="module" src="/assets/layout/layout.js"></script>
+</body>
+</html>

@@ -1,30 +1,32 @@
 @import "tailwindcss";
 
 /*
- * TrueSquare design tokens.
- * Blueprint teal for actions and identity, safety amber as a sparing accent,
- * warm neutral canvas. All text colours meet WCAG AA on their backgrounds.
+ * TrueSquare design tokens — the taste-skill deal (start.mjs, software):
+ * palette "teal-on-paper" (bg #f7f9f8, surface #ebf0ee, ink and accent #06525c, muted #2f737d)
+ * and the pairing Schibsted Grotesk + JetBrains Mono. The home page (public/index.html) uses the
+ * same values through the kit's --p-* tokens. Contrast: ink 8.4:1, muted 5.1:1 on the page ground.
  */
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-manrope), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  --color-canvas: #f6f7f4;
+  --color-canvas: #f7f9f8;
   --color-surface: #ffffff;
-  --color-ink: #0f1c26;
-  --color-ink-soft: #3b4a57;
-  --color-ink-muted: #5b6874;
-  --color-line: #dfe4e7;
-  --color-line-strong: #c3ccd2;
+  --color-ink: #06525c;
+  --color-ink-soft: #06525c;
+  --color-ink-muted: #2f737d;
+  --color-line: #d6e1de;
+  --color-line-strong: #b4c8c4;
 
-  --color-brand-50: #eef6f9;
-  --color-brand-100: #d5e8f0;
-  --color-brand-200: #a9d0e0;
-  --color-brand-500: #2a7fa6;
-  --color-brand-600: #17668a;
-  --color-brand-700: #115473;
-  --color-brand-800: #0e4058;
-  --color-brand-900: #0b2f40;
+  --color-brand-50: #ebf0ee;
+  --color-brand-100: #d8e4e1;
+  --color-brand-200: #b4ccc8;
+  --color-brand-500: #2f737d;
+  --color-brand-600: #0a5f6a;
+  --color-brand-700: #06525c;
+  --color-brand-800: #05454e;
+  --color-brand-900: #043940;
 
   --color-amber-300: #ffd25e;
   --color-amber-400: #f6bd1f;
@@ -34,9 +36,9 @@
   --color-danger-bg: #fef3f2;
   --color-success: #067647;
 
-  --radius-card: 14px;
-  --shadow-card: 0 1px 2px rgb(15 28 38 / 0.05), 0 1px 3px rgb(15 28 38 / 0.06);
-  --shadow-raised: 0 4px 16px rgb(15 28 38 / 0.08);
+  --radius-card: 12px;
+  --shadow-card: none;
+  --shadow-raised: 0 8px 24px rgb(6 82 92 / 0.08);
 }
 
 @layer base {
@@ -50,16 +52,24 @@
     font-family: var(--font-sans);
     text-rendering: optimizeLegibility;
   }
+  /* Headlines at the dealt display weight (400), carried by size and tight tracking, never bold. */
   h1,
-  h2,
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    color: var(--color-ink);
+  }
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    letter-spacing: -0.01em;
     color: var(--color-ink);
   }
   :focus-visible {
-    outline: 3px solid var(--color-brand-500);
+    outline: 2px solid var(--color-brand-700);
     outline-offset: 2px;
     border-radius: 4px;
   }
@@ -70,22 +80,64 @@
 }
 
 @layer components {
+  /* The kit's .wrap: 1280 wide on the same lines as the home page (gutter 80 / 48 / 24). */
   .container-page {
-    width: 100%;
-    max-width: 76rem;
+    width: min(100% - 48px, 1280px);
     margin-inline: auto;
-    padding-inline: 1rem;
   }
   @media (min-width: 640px) {
     .container-page {
-      padding-inline: 1.5rem;
+      width: min(100% - 96px, 1280px);
+    }
+  }
+  @media (min-width: 1024px) {
+    .container-page {
+      width: min(100% - 160px, 1280px);
     }
   }
   .card {
     background: var(--color-surface);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
+  }
+  /* Hover layer, as the kit's motion.css: linked cards lift 2px, buttons step and press, underlines draw. */
+  a.card {
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  a.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-raised);
+  }
+  .btn-primary {
+    align-items: center;
+    gap: 0.5rem;
+    height: 44px;
+    padding-inline: 20px;
+    border-radius: 12px;
+    background: var(--color-brand-700);
+    color: #f7f9f8;
+    font-size: 15px;
+    font-weight: 500;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+  }
+  .btn-primary:hover {
+    background: var(--color-brand-800);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active {
+    transform: translateY(1px) scale(0.98);
+  }
+  .nav-link,
+  .footer-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.25s ease;
+  }
+  .nav-link:hover,
+  .footer-link:hover {
+    background-size: 100% 1px;
   }
   .tabular {
     font-variant-numeric: tabular-nums;
@@ -101,14 +153,14 @@
     margin-top: 1rem;
   }
   .prose-ts h2 {
-    font-size: 1.5rem;
-    line-height: 1.25;
-    font-weight: 700;
-    margin-top: 2.5rem;
+    font-size: 2rem;
+    line-height: 1.15;
+    font-weight: 400;
+    margin-top: 3rem;
   }
   .prose-ts h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 500;
     margin-top: 1.75rem;
   }
   .prose-ts ul,
@@ -137,7 +189,7 @@
   }
   .prose-ts code,
   .formula {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: var(--font-mono);
     font-size: 0.92em;
     background: var(--color-brand-50);
     border: 1px solid var(--color-brand-100);

@@ -50,7 +50,7 @@ export function ContactForm({ endpoint }: { endpoint: string }) {
         <label htmlFor="c-company">Company</label>
         <input id="c-company" name="company" tabIndex={-1} autoComplete="off" />
       </div>
-      <button type="submit" disabled={status === "sending"} className="rounded-lg bg-brand-700 px-4 py-2.5 font-semibold text-white hover:bg-brand-800 disabled:opacity-60">
+      <button type="submit" disabled={status === "sending"} className="rounded-lg bg-brand-700 px-4 py-2.5 font-medium text-white hover:bg-brand-800 disabled:opacity-60">
         {status === "sending" ? "Sending…" : "Send message"}
       </button>
       <p role="status" className="text-sm">

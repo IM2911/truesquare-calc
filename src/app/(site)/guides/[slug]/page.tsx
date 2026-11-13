@@ -52,9 +52,9 @@ export default async function GuidePage(props: PageProps<"/guides/[slug]">) {
       <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <article className="min-w-0">
           <header className="max-w-3xl">
-            <h1 className="text-3xl font-extrabold leading-tight sm:text-4xl">{g.title}</h1>
+            <h1 className="text-4xl sm:text-[56px]">{g.title}</h1>
             <p className="mt-3 text-lg text-ink-soft">{g.summary}</p>
-            <p className="mt-3 text-xs text-ink-muted">
+            <p className="mt-3 text-[13px] text-ink-muted">
               By the {SITE.name} team · Updated <time dateTime={g.updated}>{fmt(g.updated)}</time>
             </p>
           </header>
@@ -125,7 +125,7 @@ export default async function GuidePage(props: PageProps<"/guides/[slug]">) {
           </div>
         </article>
         <aside className="space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wider text-ink-muted">Calculators for this guide</h2>
+          <h2 className="text-sm font-medium text-ink-muted">Calculators for this guide</h2>
           {calcs.map((c) => (
             <CalculatorCard key={c.slug} calc={c} />
           ))}
