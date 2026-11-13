@@ -26,8 +26,8 @@ export const SITE = {
   url: cleanUrl(process.env.NEXT_PUBLIC_SITE_URL || "https://truesquare-calc.pages.dev"),
   /** Public contact address. Empty until the owner configures it. */
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "",
-  /** Optional form endpoint (e.g. a Formspree-compatible URL). Empty = form disabled. */
-  contactFormEndpoint: process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT || "",
+  /** Formspree form endpoint (public by design — it is visible in the page anyway). Override with NEXT_PUBLIC_CONTACT_FORM_ENDPOINT. */
+  contactFormEndpoint: process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT || "https://formspree.io/f/xnpdnwjl",
   /** Google AdSense publisher ID (ca-pub-…). Empty = no ad code is loaded. */
   adsenseClient: process.env.NEXT_PUBLIC_ADSENSE_CLIENT || "",
   /** Date the calculators and content were last reviewed. */
