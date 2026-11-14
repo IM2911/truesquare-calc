@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Schibsted_Grotesk } from "next/font/google";
+import { ADSENSE_CLIENT, ADSENSE_SCRIPT_SRC } from "@/lib/adsense";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -16,6 +17,8 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },
   formatDetection: { telephone: false },
+  // AdSense site verification. The static home page carries the same tag (scripts/sync-adsense.mjs).
+  ...(ADSENSE_CLIENT && { other: { "google-adsense-account": ADSENSE_CLIENT } }),
 };
 
 export const viewport: Viewport = {
@@ -27,6 +30,11 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${schibsted.variable} ${mono.variable}`}>
+      <head>
+        {/* A plain async tag, as AdSense asks (next/script adds a data-nscript attribute AdSense warns about).
+            It also loads Google's consent message for EEA/UK/CH visitors and Auto ads. */}
+        {ADSENSE_SCRIPT_SRC && <script async src={ADSENSE_SCRIPT_SRC} crossOrigin="anonymous" />}
+      </head>
       <body className="flex min-h-screen flex-col antialiased">{children}</body>
     </html>
   );

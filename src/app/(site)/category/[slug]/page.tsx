@@ -72,6 +72,21 @@ export default async function CategoryPage(props: PageProps<"/category/[slug]">)
               ))}
             </dl>
           </section>
+          {cat.guidance && (
+            <section className="prose-ts mt-14 max-w-3xl" aria-labelledby="guidance-heading">
+              <h2 id="guidance-heading">{cat.guidance.heading}</h2>
+              {cat.guidance.paragraphs.map((p) => (
+                <p key={p.slice(0, 40)}>{p}</p>
+              ))}
+              {cat.guidance.list && (
+                <ul>
+                  {cat.guidance.list.map((item) => (
+                    <li key={item.slice(0, 40)}>{item}</li>
+                  ))}
+                </ul>
+              )}
+            </section>
+          )}
           {guides.length > 0 && (
             <section className="mt-14" aria-labelledby="guides-heading">
               <h2 id="guides-heading" className="text-3xl">

@@ -46,8 +46,9 @@ export default function AboutPage() {
 
       <h2>How the site is funded</h2>
       <p>
-        The calculators are free. In the future the site may be supported by advertising, affiliate links and optional paid templates. Commercial relationships will never change how a calculator
-        works or what it recommends. See our <Link href="/affiliate-disclosure">affiliate disclosure</Link> and <Link href="/privacy-policy">privacy policy</Link>.
+        The calculators are free. The site is supported by advertising served through Google AdSense, shown in clearly separated spaces and never inside a calculator, and may in future
+        include affiliate links and optional paid templates. Commercial relationships will never change how a calculator works or what it recommends. See our{" "}
+        <Link href="/affiliate-disclosure">affiliate disclosure</Link> and <Link href="/privacy-policy">privacy policy</Link>.
       </p>
 
       <h2>Found a mistake?</h2>

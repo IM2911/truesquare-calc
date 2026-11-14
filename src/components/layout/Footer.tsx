@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PrivacySettingsLink } from "@/components/monetization/PrivacySettingsLink";
 import { CATEGORIES } from "@/lib/categories";
 import { SITE } from "@/lib/site";
 import { LogoMark } from "./Logo";
@@ -74,6 +75,7 @@ export function Footer() {
             <Link href="/terms" className="footer-link">
               Terms
             </Link>
+            <PrivacySettingsLink fallback="" className="footer-link ml-1 before:mr-1 before:content-['·']" />
           </p>
           <p>Results are estimates, not professional or building-code advice.</p>
         </div>

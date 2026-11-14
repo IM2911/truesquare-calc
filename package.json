@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/sync-adsense.mjs",
     "build": "next build",
     "preview": "node scripts/serve-out.mjs",
     "lint": "eslint",
@@ -12,7 +13,7 @@
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
     "postbuild": "node scripts/flatten-segments.mjs",
-    "deploy": "npm run build && npx --yes wrangler@4 deploy"
+    "deploy": "npm run build && npx --yes wrangler@4 pages deploy out --project-name truesquare-calc --branch main --commit-dirty=true && npx --yes wrangler@4 deploy"
   },
   "dependencies": {
     "lucide-react": "^1.72.0",

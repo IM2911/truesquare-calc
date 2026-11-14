@@ -13,16 +13,17 @@ The site is a **fully static export** (`next build` → `out/`). Any static host
 Build output check: ~40 HTML pages + assets, far below the 20,000-file limit.
 
 ## 2. Current deployment (live)
-- **URL:** https://truesquare-calc.truesquare-calc.workers.dev
-- **Platform:** Cloudflare Workers, static-assets only (Cloudflare now delivers Pages through Workers; `wrangler pages project create` delegates there). Config: `wrangler.jsonc` → serves `out/`, `not_found_handling: "404-page"`, `html_handling: "drop-trailing-slash"`. `public/_headers` is applied to asset responses.
-- **Cost:** €0 on the Workers Free plan. Requests that only serve static assets do not run Worker code. Owner: confirm current free-plan limits and terms in the Cloudflare dashboard.
+- **Canonical URL:** https://truesquare-calc.pages.dev — Cloudflare Pages project `truesquare-calc` (production branch `main`), serving `out/` as-is. This is the address registered in Google AdSense: AdSense only accepts a registrable domain, and because both `pages.dev` and `workers.dev` are public suffixes, `truesquare-calc.pages.dev` qualifies while `truesquare-calc.truesquare-calc.workers.dev` (a subdomain of `truesquare-calc.workers.dev`) does not.
+- **Also served at:** https://truesquare-calc.truesquare-calc.workers.dev — the original Worker (static assets only; `wrangler.jsonc` → `out/`, `not_found_handling: "404-page"`, `html_handling: "drop-trailing-slash"`). It gets the same build, and every page's canonical points to pages.dev.
+- `public/_headers` is applied on both. **Cost:** €0 on the free plans. Owner: confirm current free-plan limits and terms in the Cloudflare dashboard.
+- The Pages project was created on 14 Nov 2026 with `wrangler pages project create truesquare-calc --production-branch main --force`: recent wrangler versions otherwise redirect "pages" commands for a project that does not exist yet to Workers. Now that it exists, plain `wrangler pages deploy` targets it.
 
 ### Redeploy after changes
 ```bash
-npx wrangler login      # once per machine (opens the browser)
-npm run deploy          # build + flatten segments + wrangler deploy
+npx wrangler login      # once per machine (opens the browser), with the account that owns the project
+npm run deploy          # build + flatten segments + deploy to Pages and to the Worker
 ```
-The canonical URL defaults to the workers.dev address in `src/lib/site.ts`; override with `NEXT_PUBLIC_SITE_URL` when a custom domain is added, then redeploy.
+The canonical URL defaults to the pages.dev address in `src/lib/site.ts` (and in the canonical/og tags of `public/index.html`); override with `NEXT_PUBLIC_SITE_URL` when a custom domain is added, then redeploy.
 
 ### Optional: automatic deploys from GitHub
 Either connect the repository in the Cloudflare dashboard (Workers & Pages → the `truesquare-calc` Worker → Settings → Builds → Connect repository; build command `npm run build`, deploy command `npx wrangler deploy`), or add a GitHub Actions job using `cloudflare/wrangler-action` with a `CLOUDFLARE_API_TOKEN` repository secret that **you** create (never commit tokens).
